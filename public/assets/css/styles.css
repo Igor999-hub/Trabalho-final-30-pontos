@@ -1,0 +1,102 @@
+/* ============================================== */
+/* === ESTILOS GERAIS E HEADER === */
+/* ============================================== */
+.header-logo {
+    height: 40px;
+    width: auto;
+}
+
+.carousel-item img {
+    height: 500px;
+    object-fit: cover;
+    filter: brightness(0.6);
+}
+
+.carousel-caption {
+    background-color: rgba(0, 0, 0, 0.5);
+    border-radius: 0.5rem;
+    padding: 1.5rem;
+}
+
+.card a {
+    text-decoration: none;
+    color: inherit;
+}
+
+/* ============================================== */
+/* === ESTILOS PARA OS CARDS DA HOME === */
+/* ============================================== */
+.card-com-fundo {
+    background-color: white;
+    color: #333;
+    min-height: 350px;
+    position: relative;
+    overflow: hidden;
+    border: 1px solid #eee;
+    display: flex;
+    flex-direction: column;
+    transition: transform 0.2s ease-in-out, box-shadow 0.2s ease-in-out;
+    background-size: cover;
+    background-position: center;
+    color: white;
+    border: none;
+}
+
+.card-com-fundo:hover {
+    transform: translateY(-5px);
+    box-shadow: 0 4px 12px rgba(0,0,0,0.15);
+}
+
+.card-com-fundo .card-body {
+    flex-grow: 1;
+    z-index: 2;
+    position: relative;
+}
+
+.card-com-fundo::before {
+    content: '';
+    position: absolute;
+    top: 0; left: 0; right: 0; bottom: 0;
+    background: linear-gradient(to top, rgba(0, 0, 0, 0.95) 20%, rgba(0, 0, 0, 0.1) 100%);
+    z-index: 1;
+}
+
+/* ============================================== */
+/* === ESTILOS PARA A PÁGINA DE DETALHES (NOVO) === */
+/* ============================================== */
+.main-image {
+    width: 100%;
+    height: auto;
+    max-height: 500px;
+    object-fit: contain; /* Garante que a imagem de capa apareça inteira */
+}
+
+.gallery-image {
+    width: 100%;
+    height: 200px; /* Define uma altura fixa para todas as imagens da galeria */
+    object-fit: cover; /* Faz a imagem cobrir o espaço sem distorcer */
+    cursor: pointer;
+    transition: transform 0.2s ease-in-out, box-shadow 0.2s ease-in-out;
+}
+
+.gallery-image:hover {
+    transform: scale(1.05);
+    box-shadow: 0 4px 15px rgba(0,0,0,0.2);
+}
+
+/* ============================================== */
+/* === RESPONSIVIDADE === */
+/* ============================================== */
+@media (max-width: 768px) {
+    .carousel-item img {
+        height: 300px;
+    }
+
+    .carousel-caption h5 {
+        font-size: 1.2rem;
+    }
+
+    .carousel-caption p {
+        font-size: 0.9rem;
+    }
+}

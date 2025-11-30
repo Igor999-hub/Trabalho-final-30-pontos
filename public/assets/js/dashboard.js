@@ -1,11 +1,10 @@
 const API_URL = 'http://localhost:3000/games';
 
 document.addEventListener('DOMContentLoaded', () => {
-    configurarMenu(); // Adicionado para gerenciar o menu
+    configurarMenu();
     fetchGames();
 });
 
-// Função para configurar o menu (Igual ao app.js)
 function configurarMenu() {
     const usuarioLogado = JSON.parse(sessionStorage.getItem('usuarioLogado'));
     const menuPrincipal = document.getElementById('menu-principal');
@@ -18,6 +17,7 @@ function configurarMenu() {
         usuarioInfo.classList.remove('d-none');
         nomeUsuario.textContent = `Olá, ${usuarioLogado.nome}`;
 
+        // Link Admin (Adiciona apenas se for admin)
         if (usuarioLogado.admin === true) {
             const liCadastro = document.createElement('li');
             liCadastro.className = 'nav-item';
@@ -25,6 +25,7 @@ function configurarMenu() {
             menuPrincipal.appendChild(liCadastro);
         }
 
+        // Botão Sair
         document.getElementById('btn-logout').addEventListener('click', () => {
             sessionStorage.removeItem('usuarioLogado');
             window.location.reload();

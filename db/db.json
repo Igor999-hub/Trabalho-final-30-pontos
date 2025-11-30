@@ -75,5 +75,21 @@
       "admin": false
     }
   ],
-  "favoritos": []
+  "favoritos": [
+    {
+      "id": "0ab6",
+      "userId": "admin1",
+      "gameId": "1"
+    },
+    {
+      "id": "d1b0",
+      "userId": "admin1",
+      "gameId": "2"
+    },
+    {
+      "id": "2f8e",
+      "userId": "admin1",
+      "gameId": "3"
+    }
+  ]
 }

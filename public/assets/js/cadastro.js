@@ -8,9 +8,29 @@ if (!usuarioLogado || !usuarioLogado.admin) {
 const API_URL = 'http://localhost:3000/games';
 
 document.addEventListener('DOMContentLoaded', () => {
+    configurarMenuCadastro(); // Configura o cabeçalho (Nome e Logout)
+    
     const form = document.getElementById('form-cadastro');
     form.addEventListener('submit', cadastrarJogo);
 });
+
+// Função para mostrar o nome do admin e configurar logout
+function configurarMenuCadastro() {
+    const usuarioInfo = document.getElementById('usuario-info');
+    const loginArea = document.getElementById('login-area');
+    const nomeUsuario = document.getElementById('nome-usuario');
+
+    if (usuarioLogado) {
+        loginArea.classList.add('d-none');
+        usuarioInfo.classList.remove('d-none');
+        nomeUsuario.textContent = `Olá, ${usuarioLogado.nome}`;
+
+        document.getElementById('btn-logout').addEventListener('click', () => {
+            sessionStorage.removeItem('usuarioLogado');
+            window.location.href = 'index.html';
+        });
+    }
+}
 
 async function cadastrarJogo(event) {
     event.preventDefault(); 

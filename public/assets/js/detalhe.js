@@ -3,19 +3,12 @@ const API_FAVORITOS = 'http://localhost:3000/favoritos';
 const gameDetailContainer = document.getElementById('game-detail-container');
 
 document.addEventListener('DOMContentLoaded', () => {
-    configurarMenuDetalhe(); // Configura o menu
-    
-    const params = new URLSearchParams(window.location.search);
-    const gameId = params.get('id');
-
-    if (!gameId) {
-        gameDetailContainer.innerHTML = '<p class="text-center">Jogo não encontrado. <a href="index.html">Voltar</a>.</p>';
-        return;
-    }
-    fetchGameDetails(gameId);
+    configurarMenuDetalhe();
+    const id = new URLSearchParams(window.location.search).get('id');
+    if(id) fetchDetalhes(id);
+    else gameDetailContainer.innerHTML = '<p class="text-center">Jogo não encontrado. <a href="index.html">Voltar</a>.</p>';
 });
 
-// Função para configurar o menu
 function configurarMenuDetalhe() {
     const usuarioLogado = JSON.parse(sessionStorage.getItem('usuarioLogado'));
     const menuPrincipal = document.getElementById('menu-principal');
@@ -28,6 +21,13 @@ function configurarMenuDetalhe() {
         usuarioInfo.classList.remove('d-none');
         nomeUsuario.textContent = `Olá, ${usuarioLogado.nome}`;
 
+        // Link Favoritos: PARA TODOS LOGADOS
+        const liFavoritos = document.createElement('li');
+        liFavoritos.className = 'nav-item';
+        liFavoritos.innerHTML = '<a class="nav-link" href="index.html">Meus Favoritos</a>';
+        menuPrincipal.appendChild(liFavoritos);
+
+        // Link Admin
         if (usuarioLogado.admin === true) {
             const liCadastro = document.createElement('li');
             liCadastro.className = 'nav-item';
@@ -37,12 +37,12 @@ function configurarMenuDetalhe() {
 
         document.getElementById('btn-logout').addEventListener('click', () => {
             sessionStorage.removeItem('usuarioLogado');
-            window.location.href = 'index.html'; // Volta para a home ao sair
+            window.location.href = 'index.html';
         });
     }
 }
 
-async function fetchGameDetails(id) {
+async function fetchDetalhes(id) {
     try {
         const resGame = await fetch(`${API_URL}/${id}`);
         if(!resGame.ok) throw new Error('Jogo não encontrado');
@@ -50,6 +50,7 @@ async function fetchGameDetails(id) {
         
         const usuarioLogado = JSON.parse(sessionStorage.getItem('usuarioLogado'));
         let isFav = false;
+        
         if(usuarioLogado) {
             const resFav = await fetch(`${API_FAVORITOS}?userId=${usuarioLogado.id}&gameId=${id}`);
             const favs = await resFav.json();
@@ -67,6 +68,7 @@ function renderGameDetails(game, isFav) {
     const usuarioLogado = JSON.parse(sessionStorage.getItem('usuarioLogado'));
 
     let favBtn = '';
+    // BOTÃO DE FAVORITO: PARA QUALQUER USUÁRIO LOGADO
     if(usuarioLogado) {
         const iconClass = isFav ? 'bi-heart-fill text-danger' : 'bi-heart';
         const btnText = isFav ? 'Remover Favorito' : 'Adicionar aos Favoritos';

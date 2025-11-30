@@ -4,65 +4,76 @@
       "id": "1",
       "title": "Super Mario 64",
       "description": "Um revolucionário jogo de plataforma 3D que definiu uma geração.",
-      "longDescription": "Super Mario 64, lançado em 1996, é um dos títulos de lançamento do Nintendo 64. Ele revolucionou o gênero de plataforma com seus vastos mundos abertos e jogabilidade em 3D, estabelecendo um novo padrão para a indústria de jogos.",
+      "longDescription": "Super Mario 64, lançado em 1996, é um dos títulos de lançamento do Nintendo 64. Ele revolucionou o gênero de plataforma com seus vastos mundos abertos e jogabilidade em 3D.",
       "image": "https://images.unsplash.com/photo-1629646526325-d4e092b641b3?ixlib=rb-4.1.0&ixid=M3wxMjA3fDB8MHxzZWFyY2h8MXx8bWFyaW8lMjBicm9zc3xlbnwwfHwwfHx8MA%3D%3D&auto=format&fit=crop&q=60&w=500",
       "emDestaque": true,
       "releaseYear": 1996,
       "developer": "Nintendo EAD",
       "genre": "Plataforma 3D",
       "gallery": [
-        "https://images.unsplash.com/photo-1612404459571-ccef4b6588e7?ixlib=rb-4.1.0&ixid=M3wxMjA3fDB8MHxzZWFyY2h8MTV8fG1hcmlvfGVufDB8fDB8fHww&auto=format&fit=crop&q=60&w=500",
-        "https://images.unsplash.com/photo-1551103782-8ab07afd45c1?ixlib=rb-4.1.0&ixid=M3wxMjA3fDB8MHxzZWFyY2h8Mnx8bWFyaW8lMjBicm9zc3xlbnwwfHwwfHx8MA%3D%3D&auto=format&fit=crop&q=60&w=500",
-        "https://images.unsplash.com/photo-1599409636295-e3cf3538f212?ixlib=rb-4.1.0&ixid=M3wxMjA3fDB8MHxzZWFyY2h8MTh8fG1hcmlvfGVufDB8fDB8fHww&auto=format&fit=crop&q=60&w=500"
+        "https://images.unsplash.com/photo-1612404459571-ccef4b6588e7?ixlib=rb-4.1.0&ixid=M3wxMjA3fDB8MHxzZWFyY2h8MTV8fG1hcmlvfGVufDB8fDB8fHww&auto=format&fit=crop&q=60&w=500"
       ]
     },
     {
       "id": "2",
       "title": "The Legend of Zelda: Ocarina of Time",
       "description": "Uma aventura épica através do tempo para salvar o reino de Hyrule.",
-      "longDescription": "Lançado em 1998 para o Nintendo 64, The Legend of Zelda: Ocarina of Time é frequentemente citado como um dos melhores videogames de todos os tempos. Introduziu mecânicas inovadoras como o \"Z-targeting\" e uma narrativa complexa envolvendo viagens no tempo.",
+      "longDescription": "Lançado em 1998 para o Nintendo 64, The Legend of Zelda: Ocarina of Time é frequentemente citado como um dos melhores videogames de todos os tempos.",
       "image": "https://images.unsplash.com/photo-1686397141317-4f470cbc5dbb?ixlib=rb-4.1.0&ixid=M3wxMjA3fDB8MHxzZWFyY2h8NHx8emVsZGF8ZW58MHx8MHx8fDA%3D&auto=format&fit=crop&q=60&w=500",
       "emDestaque": true,
       "releaseYear": 1998,
       "developer": "Nintendo EAD",
       "genre": "Ação-Aventura",
       "gallery": [
-        "https://images.unsplash.com/photo-1705623337603-58e849d027f2?ixlib=rb-4.1.0&ixid=M3wxMjA3fDB8MHxzZWFyY2h8Nnx8emVsZGF8ZW58MHx8MHx8fDA%3D&auto=format&fit=crop&q=60&w=500",
-        "https://images.unsplash.com/photo-1642049671748-2e35cdb11c2c?ixlib=rb-4.1.0&ixid=M3wxMjA3fDB8MHxzZWFyY2h8MTB8fHplbGRhfGVufDB8fDB8fHww&auto=format&fit=crop&q=60&w=500",
-        "https://images.unsplash.com/photo-1705623337600-0ed65024022f?ixlib=rb-4.1.0&ixid=M3wxMjA3fDB8MHxwcm9maWxlLXBhZ2V8M3x8fGVufDB8fHx8fA%3D%3D&auto=format&fit=crop&q=60&w=500"
+        "https://images.unsplash.com/photo-1705623337603-58e849d027f2?ixlib=rb-4.1.0&ixid=M3wxMjA3fDB8MHxzZWFyY2h8Nnx8emVsZGF8ZW58MHx8MHx8fDA%3D&auto=format&fit=crop&q=60&w=500"
       ]
     },
     {
       "id": "3",
       "title": "Street Fighter II",
       "description": "O lendário jogo de luta que definiu o gênero e dominou os arcades.",
-      "longDescription": "Street Fighter II: The World Warrior, lançado em 1991, popularizou o gênero de jogos de luta um-contra-um. Seu sistema de combos e a variedade de personagens jogáveis com movimentos especiais únicos o tornaram um fenômeno mundial nos arcades e consoles.",
+      "longDescription": "Street Fighter II: The World Warrior, lançado em 1991, popularizou o gênero de jogos de luta um-contra-um.",
       "image": "https://images.unsplash.com/photo-1681740231456-12382ada3b44?ixlib=rb-4.1.0&ixid=M3wxMjA3fDB8MHxzZWFyY2h8MTZ8fHN0cmVldCUyMGZpZ2h0ZXJ8ZW58MHx8MHx8fDA%3D&auto=format&fit=crop&q=60&w=500",
       "emDestaque": true,
       "releaseYear": 1991,
       "developer": "Capcom",
       "genre": "Luta",
       "gallery": [
-        "https://tse1.mm.bing.net/th/id/OIP.i-cHcWzrZYaEQ0xHjuIvwQHaDt?pid=Api&P=0&h=180",
-        "https://images.unsplash.com/photo-1566577134770-3d85bb3a9cc4?ixlib=rb-4.1.0&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D&auto=format&fit=crop&q=80&w=1170",
-        "https://tse4.mm.bing.net/th/id/OIP.suzX_4YuVrfx7B7s0t2SDwHaEK?pid=Api&P=0&h=180"
+        "https://tse1.mm.bing.net/th/id/OIP.i-cHcWzrZYaEQ0xHjuIvwQHaDt?pid=Api&P=0&h=180"
       ]
     },
     {
       "id": "4",
       "title": "Sonic the Hedgehog 2",
       "description": "Acelere com o ouriço azul e seu amigo Tails nesta clássica aventura.",
-      "longDescription": "Lançado em 1992 para o Mega Drive, Sonic the Hedgehog 2 aprimorou a fórmula do original com fases mais rápidas, a introdução do personagem Tails e o movimento \"Spin Dash\". Foi um enorme sucesso comercial e crítico, solidificando Sonic como um ícone dos videogames.",
+      "longDescription": "Lançado em 1992 para o Mega Drive, Sonic the Hedgehog 2 aprimorou a fórmula do original.",
       "image": "https://images.unsplash.com/photo-1619253790960-83acb6df8cc3?ixlib=rb-4.1.0&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D&auto=format&fit=crop&q=80&w=687",
       "emDestaque": false,
       "releaseYear": 1992,
       "developer": "Sonic Team",
       "genre": "Plataforma 2D",
       "gallery": [
-        "https://tse2.mm.bing.net/th/id/OIP.fwdpsyMbJi7_JmiQkEDX8gHaED?pid=Api&P=0&h=180",
-        "https://tse3.mm.bing.net/th/id/OIP.BB4InVChWx5P5UxNHJxQ3wHaEK?pid=Api&P=0&h=180",
-        "https://tse4.mm.bing.net/th/id/OIP.tkP8lH8OFBWcvTtmLmLPegHaDt?pid=Api&P=0&h=180"
+        "https://tse2.mm.bing.net/th/id/OIP.fwdpsyMbJi7_JmiQkEDX8gHaED?pid=Api&P=0&h=180"
       ]
     }
-  ]
+  ],
+  "usuarios": [
+    {
+      "id": "admin1",
+      "login": "admin",
+      "senha": "123",
+      "nome": "Administrador",
+      "email": "admin@startplay.com",
+      "admin": true
+    },
+    {
+      "id": "user1",
+      "login": "user",
+      "senha": "123",
+      "nome": "Usuário Comum",
+      "email": "user@gmail.com",
+      "admin": false
+    }
+  ],
+  "favoritos": []
 }

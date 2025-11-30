@@ -1,86 +1,133 @@
-// Define a URL base da nossa API na porta 3000
 const API_URL = 'http://localhost:3000/games';
-
-// Pega o container principal no HTML
+const API_FAVORITOS = 'http://localhost:3000/favoritos';
 const gameDetailContainer = document.getElementById('game-detail-container');
 
 document.addEventListener('DOMContentLoaded', () => {
-    // Lê a URL da página para encontrar o ID do jogo.
+    configurarMenuDetalhe(); // Configura o menu
+    
     const params = new URLSearchParams(window.location.search);
-    const gameId = params.get('id'); // Pega o valor do 'id'
+    const gameId = params.get('id');
 
-    // Se não tiver ID, mostra erro
     if (!gameId) {
-        gameDetailContainer.innerHTML = '<p class="text-center">Jogo não encontrado. <a href="index.html">Voltar para a Home</a>.</p>';
+        gameDetailContainer.innerHTML = '<p class="text-center">Jogo não encontrado. <a href="index.html">Voltar</a>.</p>';
         return;
     }
-
-    // Se tiver ID, busca esse jogo específico na API
     fetchGameDetails(gameId);
 });
 
-// Função para buscar o JOGO ÚNICO
+// Função para configurar o menu
+function configurarMenuDetalhe() {
+    const usuarioLogado = JSON.parse(sessionStorage.getItem('usuarioLogado'));
+    const menuPrincipal = document.getElementById('menu-principal');
+    const usuarioInfo = document.getElementById('usuario-info');
+    const loginArea = document.getElementById('login-area');
+    const nomeUsuario = document.getElementById('nome-usuario');
+
+    if (usuarioLogado) {
+        loginArea.classList.add('d-none');
+        usuarioInfo.classList.remove('d-none');
+        nomeUsuario.textContent = `Olá, ${usuarioLogado.nome}`;
+
+        if (usuarioLogado.admin === true) {
+            const liCadastro = document.createElement('li');
+            liCadastro.className = 'nav-item';
+            liCadastro.innerHTML = '<a class="nav-link" href="cadastro_jogo.html">Cadastrar Jogo</a>';
+            menuPrincipal.appendChild(liCadastro);
+        }
+
+        document.getElementById('btn-logout').addEventListener('click', () => {
+            sessionStorage.removeItem('usuarioLogado');
+            window.location.href = 'index.html'; // Volta para a home ao sair
+        });
+    }
+}
+
 async function fetchGameDetails(id) {
     try {
-        const response = await fetch(`${API_URL}/${id}`);
-        if (!response.ok) {
-            throw new Error('Jogo não encontrado na API.');
-        }
-        const game = await response.json();
+        const resGame = await fetch(`${API_URL}/${id}`);
+        if(!resGame.ok) throw new Error('Jogo não encontrado');
+        const game = await resGame.json();
         
-        // Se encontrou, chama a função para renderizar
-        renderGameDetails(game);
+        const usuarioLogado = JSON.parse(sessionStorage.getItem('usuarioLogado'));
+        let isFav = false;
+        if(usuarioLogado) {
+            const resFav = await fetch(`${API_FAVORITOS}?userId=${usuarioLogado.id}&gameId=${id}`);
+            const favs = await resFav.json();
+            isFav = favs.length > 0;
+        }
 
+        renderGameDetails(game, isFav);
     } catch (error) {
-        console.error('Erro ao buscar detalhes do jogo:', error);
         gameDetailContainer.innerHTML = `<p class="text-center text-danger">${error.message}</p>`;
     }
 }
 
-// Função para RENDERIZAR A PÁGINA (este é o seu código antigo, adaptado)
-function renderGameDetails(game) {
-    // Altera o título da aba do navegador
+function renderGameDetails(game, isFav) {
     document.title = `${game.title} - StartPlay`;
+    const usuarioLogado = JSON.parse(sessionStorage.getItem('usuarioLogado'));
 
-    // ---- INÍCIO DA MONTAGEM DA GALERIA DE IMAGENS ----
-    let galleryHTML = ''; 
-    if (game.gallery && game.gallery.length > 0) {
-        game.gallery.forEach(imageUrl => {
-            galleryHTML += `
-                <div class="col-md-4 mb-3">
-                    <img src="${imageUrl}" class="img-fluid rounded shadow-sm gallery-image" alt="Imagem da galeria de ${game.title}">
-                </div>
-            `;
+    let favBtn = '';
+    if(usuarioLogado) {
+        const iconClass = isFav ? 'bi-heart-fill text-danger' : 'bi-heart';
+        const btnText = isFav ? 'Remover Favorito' : 'Adicionar aos Favoritos';
+        favBtn = `<button id="btn-fav-detalhe" class="btn btn-outline-dark ms-3" onclick="toggleFavDetalhe('${game.id}')">
+                    <i class="bi ${iconClass}"></i> ${btnText}
+                  </button>`;
+    }
+
+    let galleryHTML = '';
+    if (game.gallery) {
+        game.gallery.forEach(img => {
+            galleryHTML += `<div class="col-md-4 mb-3"><img src="${img}" class="img-fluid rounded shadow-sm"></div>`;
         });
     }
-    // ---- FIM DA MONTAGEM DA GALERIA DE IMAGENS ----
 
-    // ---- INÍCIO DA MONTAGEM DO HTML PRINCIPAL (Descrição + Galeria) ----
-    const detailHTML = `
+    const html = `
         <div class="row">
             <div class="col-md-5">
-                <img src="${game.image}" class="img-fluid rounded shadow" alt="Capa do jogo ${game.title}">
+                <img src="${game.image}" class="img-fluid rounded shadow" alt="${game.title}">
             </div>
-
             <div class="col-md-7">
-                <h1 class="display-5 fw-bold">${game.title}</h1>
+                <div class="d-flex align-items-center mb-3">
+                    <h1 class="display-5 fw-bold mb-0">${game.title}</h1>
+                    ${favBtn}
+                </div>
                 <p class="lead">${game.longDescription}</p>
                 <hr>
-                <p><strong>Ano de Lançamento:</strong> ${game.releaseYear}</p>
-                <p><strong>Desenvolvedora:</strong> ${game.developer}</p>
+                <p><strong>Ano:</strong> ${game.releaseYear}</p>
+                <p><strong>Dev:</strong> ${game.developer}</p>
                 <p><strong>Gênero:</strong> ${game.genre}</p>
             </div>
         </div>
-
         <div class="mt-5">
-            <h2 class="text-center mb-4">Galeria de Imagens</h2>
-            <div class="row">
-                ${galleryHTML}
-            </div>
+            <h3 class="text-center mb-4">Galeria de Imagens</h3>
+            <div class="row">${galleryHTML}</div>
         </div>
     `;
-    // ---- FIM DA MONTAGEM DO HTML PRINCIPAL ----
+    gameDetailContainer.innerHTML = html;
+}
 
-    // Finalmente, coloca todo o HTML na página
-    gameDetailContainer.innerHTML = detailHTML;
+async function toggleFavDetalhe(gameId) {
+    const usuarioLogado = JSON.parse(sessionStorage.getItem('usuarioLogado'));
+    if (!usuarioLogado) return;
+
+    try {
+        const res = await fetch(`${API_FAVORITOS}?userId=${usuarioLogado.id}&gameId=${gameId}`);
+        const existentes = await res.json();
+        const btn = document.getElementById('btn-fav-detalhe');
+
+        if (existentes.length > 0) {
+            await fetch(`${API_FAVORITOS}/${existentes[0].id}`, { method: 'DELETE' });
+            btn.innerHTML = '<i class="bi bi-heart"></i> Adicionar aos Favoritos';
+        } else {
+            await fetch(API_FAVORITOS, {
+                method: 'POST',
+                headers: {'Content-Type': 'application/json'},
+                body: JSON.stringify({ userId: usuarioLogado.id, gameId: gameId })
+            });
+            btn.innerHTML = '<i class="bi bi-heart-fill text-danger"></i> Remover Favorito';
+        }
+    } catch (error) {
+        console.error(error);
+    }
 }

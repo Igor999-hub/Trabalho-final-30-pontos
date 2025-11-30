@@ -1,57 +1,70 @@
-// Define a URL base da nossa API (porta 3000)
 const API_URL = 'http://localhost:3000/games';
 
 document.addEventListener('DOMContentLoaded', () => {
+    configurarMenu(); // Adicionado para gerenciar o menu
     fetchGames();
 });
 
-// 1. Função principal para buscar dados
+// Função para configurar o menu (Igual ao app.js)
+function configurarMenu() {
+    const usuarioLogado = JSON.parse(sessionStorage.getItem('usuarioLogado'));
+    const menuPrincipal = document.getElementById('menu-principal');
+    const usuarioInfo = document.getElementById('usuario-info');
+    const loginArea = document.getElementById('login-area');
+    const nomeUsuario = document.getElementById('nome-usuario');
+
+    if (usuarioLogado) {
+        loginArea.classList.add('d-none');
+        usuarioInfo.classList.remove('d-none');
+        nomeUsuario.textContent = `Olá, ${usuarioLogado.nome}`;
+
+        if (usuarioLogado.admin === true) {
+            const liCadastro = document.createElement('li');
+            liCadastro.className = 'nav-item';
+            liCadastro.innerHTML = '<a class="nav-link" href="cadastro_jogo.html">Cadastrar Jogo</a>';
+            menuPrincipal.appendChild(liCadastro);
+        }
+
+        document.getElementById('btn-logout').addEventListener('click', () => {
+            sessionStorage.removeItem('usuarioLogado');
+            window.location.reload();
+        });
+    }
+}
+
 async function fetchGames() {
     try {
         const response = await fetch(API_URL);
-        if (!response.ok) throw new Error('Falha ao buscar dados da API');
+        if (!response.ok) throw new Error('Falha API');
         const games = await response.json();
         
-        // 2. Processar e criar os gráficos
         const genreData = processGenreData(games);
         createGenreChart(genreData.labels, genreData.data);
         
         const yearData = processYearData(games);
         createYearChart(yearData.labels, yearData.data);
-
     } catch (error) {
-        console.error('Erro ao carregar o dashboard:', error);
+        console.error(error);
     }
 }
 
-// 3. Processa dados para o gráfico de Gênero (Pizza)
 function processGenreData(games) {
     const genreCounts = {};
-
-    // Conta a ocorrência de cada gênero
     games.forEach(game => {
-        const genre = game.genre || 'Não categorizado';
+        const genre = game.genre || 'Outro';
         genreCounts[genre] = (genreCounts[genre] || 0) + 1;
     });
-
-    return {
-        labels: Object.keys(genreCounts), // Ex: ["Plataforma 3D", "RPG", "Luta"]
-        data: Object.values(genreCounts)  // Ex: [2, 1, 1]
-    };
+    return { labels: Object.keys(genreCounts), data: Object.values(genreCounts) };
 }
 
-// 4. Processa dados para o gráfico de Ano (Barras)
 function processYearData(games) {
-    // Ordena os jogos por ano para o gráfico ficar mais bonito
     const sortedGames = games.sort((a, b) => a.releaseYear - b.releaseYear);
-
     return {
-        labels: sortedGames.map(game => game.title),       // Nomes dos jogos
-        data: sortedGames.map(game => game.releaseYear)  // Anos de lançamento
+        labels: sortedGames.map(game => game.title),
+        data: sortedGames.map(game => game.releaseYear)
     };
 }
 
-// 5. Cria o Gráfico de Pizza (Gênero)
 function createGenreChart(labels, data) {
     const ctx = document.getElementById('genreChart').getContext('2d');
     new Chart(ctx, {
@@ -61,21 +74,12 @@ function createGenreChart(labels, data) {
             datasets: [{
                 label: 'Jogos por Gênero',
                 data: data,
-                backgroundColor: [
-                    'rgba(255, 99, 132, 0.7)',
-                    'rgba(54, 162, 235, 0.7)',
-                    'rgba(255, 206, 86, 0.7)',
-                    'rgba(75, 192, 192, 0.7)',
-                    'rgba(153, 102, 255, 0.7)',
-                    'rgba(255, 159, 64, 0.7)'
-                ],
-                hoverOffset: 4
+                backgroundColor: ['#ff6384', '#36a2eb', '#ffce56', '#4bc0c0', '#9966ff', '#ff9f40']
             }]
         }
     });
 }
 
-// 6. Cria o Gráfico de Barras (Ano)
 function createYearChart(labels, data) {
     const ctx = document.getElementById('yearChart').getContext('2d');
     new Chart(ctx, {
@@ -85,19 +89,9 @@ function createYearChart(labels, data) {
             datasets: [{
                 label: 'Ano de Lançamento',
                 data: data,
-                backgroundColor: 'rgba(75, 192, 192, 0.7)',
-                borderColor: 'rgba(75, 192, 192, 1)',
-                borderWidth: 1
+                backgroundColor: '#36a2eb'
             }]
         },
-        options: {
-            indexAxis: 'y', // Faz o gráfico ser de barras horizontais
-            scales: {
-                x: {
-                    // Começa a contagem do ano mais antigo - 10
-                    min: Math.min(...data) - 10 
-                }
-            }
-        }
+        options: { indexAxis: 'y', scales: { x: { min: Math.min(...data) - 5 } } }
     });
 }

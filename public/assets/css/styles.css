@@ -62,19 +62,19 @@
 }
 
 /* ============================================== */
-/* === ESTILOS PARA A PÁGINA DE DETALHES (NOVO) === */
+/* === ESTILOS PARA A PÁGINA DE DETALHES === */
 /* ============================================== */
 .main-image {
     width: 100%;
     height: auto;
     max-height: 500px;
-    object-fit: contain; /* Garante que a imagem de capa apareça inteira */
+    object-fit: contain;
 }
 
 .gallery-image {
     width: 100%;
-    height: 200px; /* Define uma altura fixa para todas as imagens da galeria */
-    object-fit: cover; /* Faz a imagem cobrir o espaço sem distorcer */
+    height: 200px;
+    object-fit: cover;
     cursor: pointer;
     transition: transform 0.2s ease-in-out, box-shadow 0.2s ease-in-out;
 }
@@ -82,6 +82,30 @@
 .gallery-image:hover {
     transform: scale(1.05);
     box-shadow: 0 4px 15px rgba(0,0,0,0.2);
+}
+
+/* ============================================== */
+/* === NOVO: ÍCONE DE FAVORITO === */
+/* ============================================== */
+.favorito-icon {
+    position: absolute;
+    top: 10px;
+    right: 10px;
+    font-size: 1.5rem;
+    color: #ccc; /* Cor padrão (desmarcado) */
+    cursor: pointer;
+    z-index: 10;
+    transition: color 0.2s, transform 0.2s;
+}
+
+.favorito-icon:hover {
+    color: #ff6b6b; /* Vermelho claro ao passar o mouse */
+    transform: scale(1.2);
+}
+
+/* Quando tem a classe 'ativo' (adicionada pelo JS) */
+.favorito-icon.ativo {
+    color: #ff0000; /* Vermelho vivo */
 }
 
 /* ============================================== */

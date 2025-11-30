@@ -1,4 +1,10 @@
-// Define a URL base da nossa API
+// PROTEÇÃO: Verifica se é admin antes de carregar qualquer coisa
+const usuarioLogado = JSON.parse(sessionStorage.getItem('usuarioLogado'));
+if (!usuarioLogado || !usuarioLogado.admin) {
+    alert('Acesso negado! Apenas administradores podem acessar esta página.');
+    window.location.href = 'index.html';
+}
+
 const API_URL = 'http://localhost:3000/games';
 
 document.addEventListener('DOMContentLoaded', () => {
@@ -7,9 +13,8 @@ document.addEventListener('DOMContentLoaded', () => {
 });
 
 async function cadastrarJogo(event) {
-    event.preventDefault(); // Impede o recarregamento da página
+    event.preventDefault(); 
 
-    // Pega os valores do formulário
     const novoJogo = {
         title: document.getElementById('title').value,
         description: document.getElementById('description').value,
@@ -19,12 +24,11 @@ async function cadastrarJogo(event) {
         developer: document.getElementById('developer').value,
         genre: document.getElementById('genre').value,
         emDestaque: document.getElementById('emDestaque').checked,
-        gallery: [] // Opcional: Adicionar galeria se desejar
+        gallery: [] 
     };
 
-    // Validação básica (o 'required' do HTML já ajuda)
     if (!novoJogo.title || !novoJogo.description || !novoJogo.image) {
-        alert('Por favor, preencha os campos obrigatórios (Título, Descrição, Imagem).');
+        alert('Por favor, preencha os campos obrigatórios.');
         return;
     }
 
@@ -37,12 +41,10 @@ async function cadastrarJogo(event) {
             body: JSON.stringify(novoJogo)
         });
 
-        if (!response.ok) {
-            throw new Error('Erro ao cadastrar o jogo.');
-        }
+        if (!response.ok) throw new Error('Erro ao cadastrar.');
 
         alert('Jogo cadastrado com sucesso!');
-        window.location.href = 'index.html'; // Redireciona para a home
+        window.location.href = 'index.html'; 
 
     } catch (error) {
         console.error('Falha no cadastro:', error);

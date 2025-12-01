@@ -73,18 +73,21 @@
       "nome": "Usuário Comum",
       "email": "user@gmail.com",
       "admin": false
+    },
+    {
+      "id": "fc51",
+      "nome": "dsad",
+      "email": "dasdad@afaf.com",
+      "login": "dasdas",
+      "senha": "dasd",
+      "admin": false
     }
   ],
   "favoritos": [
     {
-      "id": "0ab6",
-      "userId": "admin1",
+      "id": "961d",
+      "userId": "user1",
       "gameId": "1"
-    },
-    {
-      "id": "03fc",
-      "userId": "admin1",
-      "gameId": "4"
     }
   ]
 }
